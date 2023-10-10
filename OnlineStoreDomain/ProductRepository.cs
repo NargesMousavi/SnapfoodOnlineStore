@@ -7,17 +7,13 @@ namespace OnlineStore.Domain
     public class ProductRepository : IProductRepository
     {
         private readonly OnlineStoreContext _dbContext;
-        private readonly MemoryCache _productCache;
+        private readonly IMemoryCache _productCache;
         private readonly string _cacheName; // should be unique in project
 
-        public ProductRepository(OnlineStoreContext dbContext)
+        public ProductRepository(OnlineStoreContext dbContext, IMemoryCache memCache)
         {
             _dbContext = dbContext;
-            _productCache = new MemoryCache(
-        new MemoryCacheOptions
-        {
-            SizeLimit = 1024
-        });
+            _productCache = memCache;
             _cacheName = nameof(Product);
         }
         public async Task<ProductViewModel> AddAsync(ProductViewModel product)
