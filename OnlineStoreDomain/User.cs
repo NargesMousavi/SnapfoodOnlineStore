@@ -1,4 +1,4 @@
-﻿namespace OnlineStore
+﻿namespace OnlineStore.Domain
 {
     public class User
     {

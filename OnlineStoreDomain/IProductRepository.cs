@@ -8,10 +8,9 @@ namespace OnlineStore.Domain
 {
     public interface IProductRepository
     {
-        List<ProductViewModel> Products { get; set; }
-        void InitializeProductCache();
-        ProductViewModel GetById(int id);
-        ProductViewModel GetByTitle(string titile);
-        ProductViewModel Add(Product product);
+        Task<ProductViewModel?> GetByIdAsync(int id);
+        Task<ProductViewModel> AddAsync(ProductViewModel product);
+        Task<ProductViewModel?> GetByTitleAsync(string title);
+        Task<bool> IncreaseInventoryCountAsync(int id, int inventoryCount);
     }
 }

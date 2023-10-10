@@ -1,6 +1,5 @@
 using Moq;
 using OnlineStore.Domain;
-using OnlineStore.Domain.Infra;
 
 namespace OnlineStoreTest
 {
@@ -11,8 +10,7 @@ namespace OnlineStoreTest
         {
             //Arrange
             var stubRepository = new Mock<IProductRepository>();
-            var stubCache = new Mock<ICache>();
-            var stubProductService = new ProductService(stubRepository.Object,stubCache.Object);
+            //var stubProductService = new ProductService(stubRepository.Object,stubCache.Object);
             //Act
             //Assert
         }

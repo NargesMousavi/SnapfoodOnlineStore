@@ -1,4 +1,4 @@
-﻿namespace OnlineStore
+﻿namespace OnlineStore.Domain
 {
     public class Order
     {
@@ -7,3 +7,4 @@
         public DateTime CreationDate { get; set; }
         public User Buyer { get; set; }
     }
+}

@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using OnlineStore.Presentation.Dtos;
+using OnlineStore.Domain;
 
 namespace OnlineStore.Presentation.Controllers
 {
@@ -7,24 +7,32 @@ namespace OnlineStore.Presentation.Controllers
     [ApiController]
     public class ProductController : ControllerBase
     {
+        private readonly ProductService _productService;
+        public ProductController(ProductService productService)
+        {
+            _productService = productService;
+        }
 
         [HttpGet("{id}")]
-        public ProductDto Get(int id)
+        public async Task<ProductViewModel> Get(int id)
         {
-            return "value";
+            return await _productService.GetProductWithDiscountAsync(id);
         }
 
         [HttpPost]
-        public void Post([FromBody] ProductDto productDto)
+        public async Task<ProductViewModel> Add([FromBody] ProductViewModel productDto)
         {
+            return await _productService.Add(productDto);
         }
-        [HttpPut("{id}")]
-        public void IncreseInventory(int id, int count)
+        [HttpPut("{id}/IncreseInventory")]
+        public async Task<bool> IncreseInventory(int id, int count)
         {
+            return await _productService.IncreaseInventoryCountAsync(id, count);
         }
-        [HttpPut("{id}")]
-        public void Buy(int id, [FromBody] ProductDto productDto)
+        [HttpPost("{productId}/Buy")]
+        public async Task<int> Buy(int productId, int userId)
         {
-        } 
+            return await _productService.BuyProductAsync(productId, userId);
+        }
     }
 }
