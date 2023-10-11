@@ -16,7 +16,7 @@ namespace OnlineStore.Domain
             _productRepo = productRepo;
             _userRepo = userRepo;
         }
-        public async Task<ProductViewModel> Add(ProductViewModel product)
+        public async Task<ProductViewModel> AddAsync(ProductViewModel product)
         {
             if (product.Title.Length > 40)
             {

@@ -9,17 +9,27 @@ namespace OnlineStoreTest
         public void Add_NameIsNotUnique_ReturnsException()
         {
             //Arrange
-            var stubRepository = new Mock<IProductRepository>();
-            //var stubProductService = new ProductService(stubRepository.Object,stubCache.Object);
+            var stubProdRepository = new Mock<IProductRepository>();
+            var stubUserRepository = new Mock<IUserRepository>();
+            stubProdRepository.Setup(p => p.GetByTitleAsync("")).Returns(Task.FromResult<ProductViewModel?>(new ProductViewModel { }));
+            var stubProductService = new ProductService(stubProdRepository.Object, stubUserRepository.Object);
             //Act
             //Assert
         }
         [Fact]
-        public void Add_NameLessThan40Char_ReturnsException()
+        public void Add_NameMoreThan40Char_ReturnsException()
         {
             //Arrange
-            //Act
-            //Assert
+            var title = "t"; 
+            var product = new ProductViewModel { Title = title.PadLeft(41) };
+            var stubProdRepository = new Mock<IProductRepository>();
+            var stubUserRepository = new Mock<IUserRepository>();
+            stubProdRepository.Setup(p => p.GetByIdAsync(0)).Returns(Task.FromResult<ProductViewModel?>(product));
+            var stubProductService = new ProductService(stubProdRepository.Object, stubUserRepository.Object);
+            //Act - assert
+            var ex = 
+                Assert.ThrowsAsync<ArgumentException>(() => stubProductService.AddAsync(product));
+            Assert.Equal("Product title must be less than 40 characters.", ex.Result.Message);
         }
         [Fact]
         public void Buy_AddProductToUserOrders_ReturnsUserOrder()

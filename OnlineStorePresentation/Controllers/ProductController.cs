@@ -22,7 +22,7 @@ namespace OnlineStore.Presentation.Controllers
         [HttpPost]
         public async Task<ProductViewModel> Add([FromBody] ProductViewModel productDto)
         {
-            return await _productService.Add(productDto);
+            return await _productService.AddAsync(productDto);
         }
         [HttpPut("{id}/IncreseInventory")]
         public async Task<bool> IncreseInventory(int id, int count)
