@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using OnlineStore.Domain;
+using System.ComponentModel.DataAnnotations;
 
 namespace OnlineStore
 {
@@ -9,5 +10,6 @@ namespace OnlineStore
         public int InventoryCount { get; set; }
         public double Price { get; set; }
         public double Discount { get; set; }
+        public ICollection<Order> Orders { get; set;}
     }
 }
